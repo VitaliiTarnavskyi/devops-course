@@ -15,6 +15,10 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+func enableCors(w *http.ResponseWriter) {
+    (*w).Header().Set("Access-Control-Allow-Origin", "*")
+}
+
 var dbSession *pg.DB = nil
 
 type Video struct {
@@ -70,6 +74,7 @@ func getDB(c *gin.Context) *pg.DB {
 	})
 	return dbSession
 }
+
 
 func videosGetHandler(ctx *gin.Context) {
 	slog.Debug("Handling request", "URI", ctx.Request.RequestURI)

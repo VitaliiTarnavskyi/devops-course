@@ -1,0 +1,15 @@
+services:
+  frontend:
+    container_name: frontend-devops-course
+    image: frontend-devops-course:latest
+    entrypoint: [ "sh", "/usr/local/bin/entrypoint.sh" ]
+    build:
+      context: ../
+      dockerfile: docker/frontend/Dockerfile
+    restart: always
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:8080
+    volumes:
+      - ../frontend:/var/www/frontend
+    ports:
+      - "3000:3000"
