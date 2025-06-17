@@ -1,0 +1,4 @@
+include:
+  - docker-compose-backend.yml
+  - docker-compose-frontend.yml
+  - docker-compose-monitoring.yml

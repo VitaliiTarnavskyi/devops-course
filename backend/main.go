@@ -15,6 +15,22 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func CorsMiddleware() gin.HandlerFunc {
+    return func(c *gin.Context) {
+        c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+        c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+        c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, Authorization")
+        c.Writer.Header().Set("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PATCH, DELETE, PUT")
+
+        if c.Request.Method == "OPTIONS" {
+            c.AbortWithStatus(http.StatusNoContent)
+            return
+        }
+
+        c.Next()
+    }
+}
+
 func main() {
 	log.SetOutput(os.Stderr)
 	if os.Getenv("DEBUG") == "true" {
@@ -28,11 +44,14 @@ func main() {
 	// Server
 	log.Println("Starting server...")
 	router := gin.New()
+	router.Use(CorsMiddleware())
+    router.Use(prometheusMiddleware)
 	router.GET("/fibonacci", fibonacciHandler)
 	router.POST("/video", videoPostHandler)
 	router.GET("/videos", videosGetHandler)
 	router.GET("/ping", pingHandler)
 	router.GET("/memory-leak", memoryLeakHandler)
+    router.GET("/metrics", metricsHandler)
 	router.GET("/", rootHandler)
 	port := os.Getenv("PORT")
 	if len(port) == 0 {

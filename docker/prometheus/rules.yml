@@ -1,0 +1,11 @@
+groups:
+  - name: health_check_alert
+    rules:
+      - alert: MissingHealthChecks
+        expr: increase(app_health_check_requests_total{method="GET"}[5m]) == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "No health check requests in 5 minutes"
+          description: "app_health_check_requests_total{method='GET'} did not increase in the last 5 minutes. The service may be down or unresponsive."
