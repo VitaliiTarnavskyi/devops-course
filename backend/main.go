@@ -45,11 +45,13 @@ func main() {
 	log.Println("Starting server...")
 	router := gin.New()
 	router.Use(CorsMiddleware())
+    router.Use(prometheusMiddleware)
 	router.GET("/fibonacci", fibonacciHandler)
 	router.POST("/video", videoPostHandler)
 	router.GET("/videos", videosGetHandler)
 	router.GET("/ping", pingHandler)
 	router.GET("/memory-leak", memoryLeakHandler)
+    router.GET("/metrics", metricsHandler)
 	router.GET("/", rootHandler)
 	port := os.Getenv("PORT")
 	if len(port) == 0 {
