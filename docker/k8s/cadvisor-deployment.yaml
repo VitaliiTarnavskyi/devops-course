@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml -o k8s/
+    kompose.version: 1.24.0 (4a2a0458)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: cadvisor
+  name: cadvisor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: cadvisor
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o k8s/
+        kompose.version: 1.24.0 (4a2a0458)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: cadvisor
+    spec:
+      containers:
+        - image: gcr.io/cadvisor/cadvisor
+          name: cadvisor
+          ports:
+            - containerPort: 8080
+          resources: {}
+          volumeMounts:
+            - mountPath: /rootfs
+              name: cadvisor-claim0
+              readOnly: true
+            - mountPath: /var/run
+              name: cadvisor-claim1
+              readOnly: true
+            - mountPath: /sys
+              name: cadvisor-claim2
+              readOnly: true
+            - mountPath: /var/lib/docker/image
+              name: cadvisor-claim3
+              readOnly: true
+            - mountPath: /var/run/docker.sock
+              name: cadvisor-claim4
+              readOnly: true
+      restartPolicy: Always
+      volumes:
+        - name: cadvisor-claim0
+          persistentVolumeClaim:
+            claimName: cadvisor-claim0
+            readOnly: true
+        - name: cadvisor-claim1
+          persistentVolumeClaim:
+            claimName: cadvisor-claim1
+            readOnly: true
+        - name: cadvisor-claim2
+          persistentVolumeClaim:
+            claimName: cadvisor-claim2
+            readOnly: true
+        - name: cadvisor-claim3
+          persistentVolumeClaim:
+            claimName: cadvisor-claim3
+            readOnly: true
+        - name: cadvisor-claim4
+          persistentVolumeClaim:
+            claimName: cadvisor-claim4
+            readOnly: true
+status: {}

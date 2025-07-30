@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml -o k8s/
+    kompose.version: 1.24.0 (4a2a0458)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: backend
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: backend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o k8s/
+        kompose.version: 1.24.0 (4a2a0458)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: backend
+    spec:
+      containers:
+        - env:
+            - name: DB_ENDPOINT
+              value: postgres
+            - name: DB_NAME
+              value: db
+            - name: DB_PASS
+              value: secret
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: devops
+            - name: REDIS_ENDPOINT
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          image: backend-devops-course:latest
+          name: backend-devops-course
+          ports:
+            - containerPort: 8080
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/www/backend
+              name: backend-claim0
+      restartPolicy: Always
+      volumes:
+        - name: backend-claim0
+          persistentVolumeClaim:
+            claimName: backend-claim0
+status: {}
