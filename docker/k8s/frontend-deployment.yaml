@@ -31,7 +31,7 @@ spec:
           env:
             - name: REACT_APP_BACKEND_URL
               value: http://localhost:8080
-          image: frontend-devops-course:latest
+          image: vitaliitarnavskyi/frontend-devops-course:latest
           name: frontend-devops-course
           ports:
             - containerPort: 3000

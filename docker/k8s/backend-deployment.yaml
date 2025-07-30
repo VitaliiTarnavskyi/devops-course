@@ -40,7 +40,7 @@ spec:
               value: redis
             - name: REDIS_PORT
               value: "6379"
-          image: backend-devops-course:latest
+          image: vitaliitarnavskyi/backend-devops-course:latest
           name: backend-devops-course
           ports:
             - containerPort: 8080
