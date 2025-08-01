@@ -45,12 +45,7 @@ spec:
           ports:
             - containerPort: 8080
           resources: {}
-          volumeMounts:
-            - mountPath: /var/www/backend
-              name: backend-claim0
+          volumeMounts: []
       restartPolicy: Always
-      volumes:
-        - name: backend-claim0
-          persistentVolumeClaim:
-            claimName: backend-claim0
+      volumes: []
 status: {}

@@ -36,12 +36,7 @@ spec:
           ports:
             - containerPort: 3000
           resources: {}
-          volumeMounts:
-            - mountPath: /var/www/frontend
-              name: frontend-claim0
+          volumeMounts: []
       restartPolicy: Always
-      volumes:
-        - name: frontend-claim0
-          persistentVolumeClaim:
-            claimName: frontend-claim0
+      volumes: []
 status: {}
