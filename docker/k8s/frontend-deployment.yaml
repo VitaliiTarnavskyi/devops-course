@@ -32,16 +32,12 @@ spec:
             - name: REACT_APP_BACKEND_URL
               value: http://localhost:8080
           image: vitaliitarnavskyi/frontend-devops-course:latest
+          imagePullPolicy: Always
           name: frontend-devops-course
           ports:
             - containerPort: 3000
           resources: {}
-          volumeMounts:
-            - mountPath: /var/www/frontend
-              name: frontend-claim0
+          volumeMounts: []
       restartPolicy: Always
-      volumes:
-        - name: frontend-claim0
-          persistentVolumeClaim:
-            claimName: frontend-claim0
+      volumes: []
 status: {}
