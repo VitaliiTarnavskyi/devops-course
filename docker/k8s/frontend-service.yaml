@@ -9,10 +9,12 @@ metadata:
     io.kompose.service: frontend
   name: frontend
 spec:
+  type: NodePort         # <-- додаємо
   ports:
     - name: "3000"
       port: 3000
       targetPort: 3000
+      nodePort: 30082    # порт, по якому можна стукати ззовні (30000-32767)
   selector:
     io.kompose.service: frontend
 status:
