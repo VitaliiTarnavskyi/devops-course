@@ -22,11 +22,11 @@ spec:
             - containerPort: 8080
           env:
             - name: DB_ENDPOINT
-              value: postgres
+              value: devops-course-database.cz488m2s6uzs.eu-north-1.rds.amazonaws.com
             - name: DB_NAME
-              value: db
+              value: postgres
             - name: DB_PASS
-              value: secret
+              value: ZMIj8GYc92xoDWQ1khP3
             - name: DB_PORT
               value: "5432"
             - name: DB_USER

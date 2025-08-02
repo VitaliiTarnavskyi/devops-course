@@ -30,7 +30,7 @@ spec:
             - /usr/local/bin/entrypoint.sh
           env:
             - name: REACT_APP_BACKEND_URL
-              value: http://localhost:8080
+              value: http://16.16.185.241:8080
           image: vitaliitarnavskyi/frontend-devops-course:latest
           imagePullPolicy: Always
           name: frontend-devops-course
