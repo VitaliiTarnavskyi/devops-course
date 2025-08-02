@@ -17,6 +17,7 @@ spec:
       containers:
         - name: backend
           image: vitaliitarnavskyi/backend-devops-course:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
@@ -35,3 +36,4 @@ spec:
             - name: REDIS_PORT
               value: "6379"
       restartPolicy: Always
+
