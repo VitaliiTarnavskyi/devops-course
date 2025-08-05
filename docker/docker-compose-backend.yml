@@ -11,13 +11,13 @@ services:
     ports:
       - "8081:8080"
     environment:
-      - REDIS_ENDPOINT=redis
+      - REDIS_ENDPOINT=devops-course-cache-smallest-0xkflf.serverless.eun1.cache.amazonaws.com
       - REDIS_PORT=6379
-      - DB_ENDPOINT=postgres
+      - DB_ENDPOINT=devops-course-database.cz488m2s6uzs.eu-north-1.rds.amazonaws.com
       - DB_PORT=5432
       - DB_NAME=db
-      - DB_PASS=secret
-      - DB_USER=devops
+      - DB_PASS=ZMIj8GYc92xoDWQ1khP3
+      - DB_USER=postgres
   postgres:
     image: postgres:14-alpine
     restart: always
