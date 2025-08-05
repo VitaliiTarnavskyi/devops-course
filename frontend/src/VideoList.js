@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const url = process.env.REACT_APP_BACKEND_URL;
+const url = 'http://16.16.185.241:8080';
 
 const VideoList = () => {
   const [videos, setVideos] = useState([]);

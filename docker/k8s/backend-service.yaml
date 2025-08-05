@@ -16,6 +16,6 @@ spec:
       targetPort: 8080
       nodePort: 30081    # порт, по якому можна стукати ззовні (30000-32767)
   selector:
-    io.kompose.service: backend
+    app: backend            # <-- виправлено, тепер збігається з Pod
 status:
   loadBalancer: {}
