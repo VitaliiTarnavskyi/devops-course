@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, Box } from '@mui/material';
 
-const url = process.env.REACT_APP_BACKEND_URL;
+const url = 'http://16.16.185.241:8080';
 
 const VideoAdd = () => {
   const [id, setId] = useState('');

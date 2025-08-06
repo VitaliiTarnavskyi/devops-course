@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: vitaliitarnavskyi/backend-devops-course:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_ENDPOINT
+              value: devops-course-database.cz488m2s6uzs.eu-north-1.rds.amazonaws.com
+            - name: DB_NAME
+              value: postgres
+            - name: DB_PASS
+              value: ZMIj8GYc92xoDWQ1khP3
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: postgres
+            - name: REDIS_ENDPOINT
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+      restartPolicy: Always
+

@@ -1,13 +1,18 @@
-FROM golang:1.24-alpine
+FROM golang:1.24-alpine AS builder
 
-RUN apk update && apk upgrade && \
-    apk add --no-cache bash
+WORKDIR /app
 
-WORKDIR /var/www/backend
-
-COPY backend/go.mod ./
-COPY backend/go.sum ./
+COPY backend/go.mod backend/go.sum ./
 RUN go mod download
 
+COPY backend/ ./
 
-CMD ["go", "run", "."]
+RUN go build -o backend-app .
+
+FROM alpine:3.19
+
+WORKDIR /app
+
+COPY --from=builder /app/backend-app .
+
+CMD ["./backend-app"]

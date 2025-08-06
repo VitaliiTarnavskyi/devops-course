@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml -o k8s/
+    kompose.version: 1.24.0 (4a2a0458)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: frontend
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o k8s/
+        kompose.version: 1.24.0 (4a2a0458)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: frontend
+    spec:
+      containers:
+        - command:
+            - sh
+            - /usr/local/bin/entrypoint.sh
+          env:
+            - name: REACT_APP_BACKEND_URL
+              value: http://16.16.185.241:8080
+          image: vitaliitarnavskyi/frontend-devops-course:latest
+          imagePullPolicy: Always
+          name: frontend-devops-course
+          ports:
+            - containerPort: 3000
+          resources: {}
+          volumeMounts: []
+      restartPolicy: Always
+      volumes: []
+status: {}
