@@ -9,13 +9,13 @@ metadata:
     io.kompose.service: backend
   name: backend
 spec:
-  type: NodePort         # <-- додаємо
+  type: NodePort
   ports:
     - name: "8081"
       port: 8081
       targetPort: 8080
-      nodePort: 30081    # порт, по якому можна стукати ззовні (30000-32767)
+      nodePort: 30081
   selector:
-    app: backend            # <-- виправлено, тепер збігається з Pod
+    app: backend
 status:
   loadBalancer: {}
