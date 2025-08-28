@@ -1,0 +1,24 @@
+replicaCount: 1
+
+image:
+  repository: your-frontend-image
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+containerPort: 80
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 80
+
+env:
+  API_BASE: "http://devops-course-backend:8081"
+
+resources: {}
+
+ingress:
+  enabled: false
+  className: ""
+  hosts: []
+  tls: []

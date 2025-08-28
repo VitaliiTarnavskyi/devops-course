@@ -1,0 +1,56 @@
+backend:
+  image:
+    repository: vitaliitarnavskyi/backend-devops-course
+    tag: "latest"
+    pullPolicy: Always
+  replicaCount: 1
+  service:
+    type: NodePort
+    port: 8081
+    targetPort: 8080
+    nodePort: 30081
+  containerPort: 8080
+  env:
+    db:
+      host: "{{ .Release.Name }}-postgresql"
+      port: "5432"
+      name: "postgres"
+      user: "postgres"
+    redis:
+      host: "{{ .Release.Name }}-redis-master"
+      port: "6379"
+  secret:
+    enabled: true
+    name: backend-env
+    data:
+      DB_PASS: "secret"
+frontend:
+  image:
+    repository: your-frontend-image
+    tag: "latest"
+    pullPolicy: IfNotPresent
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+  containerPort: 80
+  env:
+    API_BASE: "http://{{ .Release.Name }}-backend:8081"
+
+postgresql:
+  auth:
+    username: postgres
+    password: change-me
+    database: postgres
+  primary:
+    persistence:
+      enabled: true
+      size: 1Gi
+
+redis:
+  architecture: standalone
+  master:
+    persistence:
+      enabled: true
+      size: 512Mi
