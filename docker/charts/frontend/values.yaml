@@ -10,9 +10,8 @@ containerPort: 80
 service:
   type: NodePort
   port: 80
-  targetPort: 3000      # set to 3000 if your app listens there
-  nodePort: 30080     # optional fixed port
-
+  targetPort: 3000
+  nodePort: 30080
 env:
   API_BASE: "http://devops-course-backend:8081"
 
