@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "backend.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "backend.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "backend.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: backend
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.containerPort }}
+          env:
+            - name: DB_ENDPOINT
+              value: {{ printf "%s-postgresql" .Release.Name | quote }}
+            - name: DB_NAME
+              value: {{ default "postgres" .Values.env.db.name | quote }}
+            - name: DB_PORT
+              value: {{ default "5432" .Values.env.db.port | quote }}
+            - name: DB_USER
+              value: {{ default "postgres" .Values.env.db.user | quote }}
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default "backend-env" .Values.secret.name | quote }}
+                  key: DB_PASS
+            - name: REDIS_ENDPOINT
+              value: {{ printf "%s-redis-master" .Release.Name | quote }}
+            - name: REDIS_PORT
+              value: {{ default "6379" .Values.env.redis.port | quote }}

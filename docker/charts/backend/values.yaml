@@ -1,0 +1,31 @@
+replicaCount: 1
+
+image:
+  repository: vitaliitarnavskyi/backend-devops-course
+  tag: "latest"
+  pullPolicy: Always
+
+containerPort: 8080
+
+service:
+  type: ClusterIP
+  port: 8081
+  targetPort: 8080
+
+env:
+  db:
+    name: postgres
+    port: "5432"
+    user: postgres
+  redis:
+    port: "6379"
+
+secret:
+  enabled: true
+  name: backend-env
+  data:
+    DB_PASS: "secret"
+
+resources: {}
+persistence:
+  enabled: false

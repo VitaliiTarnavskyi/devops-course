@@ -1,0 +1,24 @@
+replicaCount: 1
+
+image:
+  repository: vitaliitarnavskyi/frontend-devops-course
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+containerPort: 80
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 3000
+  nodePort: 30080
+env:
+  API_BASE: "http://devops-course-backend:8081"
+
+resources: {}
+
+ingress:
+  enabled: false
+  className: ""
+  hosts: []
+  tls: []

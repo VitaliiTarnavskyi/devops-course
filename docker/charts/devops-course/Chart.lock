@@ -1,0 +1,15 @@
+dependencies:
+- name: backend
+  repository: file://../backend
+  version: 0.1.0
+- name: frontend
+  repository: file://../frontend
+  version: 0.1.0
+- name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: 15.5.11
+- name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: 20.6.3
+digest: sha256:92c0b4b9c389c81bdf1f550086810c017eef37cc1aa7c30beb0eed12ffddf110
+generated: "2025-08-28T20:05:53.295222+03:00"
